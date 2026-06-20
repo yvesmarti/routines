@@ -2,54 +2,54 @@
 
 ---
 
-## 1. Tableau de bord PAV en temps réel
+## 1. Comparateur de flux de déchets par commune
 
-**Quoi** : Carte Leaflet interactive affichant l'état de remplissage de chaque PAV (colonne enterrée, cabine carton) avec codes couleur (vert / orange / plein) et historique des collectes.
+**Quoi** : Script qui agrège les tonnages de collecte par commune et par flux (OMR, tri, verre, carton) depuis les exports Excel de l'exutoire, et génère un tableau comparatif avec évolution N-1 et écart à la moyenne intercommunale.
 
-**Stack** : HTML/JS + Leaflet.js + CSV local (export QField)
+**Stack** : Python (pandas) + Excel/Power Query
 
-**Gain** : Vision instantanée des PAV prioritaires, réduction des tournées à vide, argument de reporting pour les élus.
-
----
-
-## 2. Générateur de rapport terrain PAV
-
-**Quoi** : Script qui consolide les relevés QField (GeoJSON/CSV) de la semaine en un rapport PDF automatique : stats par commune, carte récapitulative, anomalies signalées.
-
-**Stack** : Python (geopandas, reportlab ou weasyprint)
-
-**Gain** : Rapport hebdomadaire prêt en 30 secondes au lieu de 2h de mise en forme manuelle.
+**Gain** : Identifier rapidement les communes en décrochage ou en progrès pour orienter les actions de communication et les ajustements de dotation en PAV.
 
 ---
 
-## 3. Tracker de signalements hors ligne (PWA)
+## 2. Carte de chaleur des signalements PAV
 
-**Quoi** : Application web légère (Progressive Web App) permettant aux agents de signaler sur le terrain vandalisme, débordement ou panne d'un PAV — avec photo, géolocalisation et synchronisation différée.
+**Quoi** : Carte Leaflet qui visualise la densité et la nature des signalements terrain (dépôts sauvages, vandalisme, débordement) sur une période glissante, avec filtres par type et par commune.
 
-**Stack** : HTML/JS + Service Worker + IndexedDB
+**Stack** : HTML/JS + Leaflet.js + Leaflet.heat + CSV/GeoJSON
 
-**Gain** : Remontée d'information terrain sans réseau, zéro installation sur les téléphones des agents, données centralisées à la synchro.
-
----
-
-## 4. Calculateur d'implantation PAV
-
-**Quoi** : Outil qui, à partir d'un secteur ou d'une adresse, calcule le rayon de desserte piéton (isochrone 5 min), identifie les zones sous-équipées et propose des spots d'implantation optimaux.
-
-**Stack** : HTML/JS + Leaflet.js + API OSRM (ou calcul offline QGIS)
-
-**Gain** : Aide à la décision factuelle pour les nouvelles implantations, gain de temps sur les études de faisabilité.
+**Gain** : Prioriser les interventions de maintenance, détecter les secteurs récurrents pour y renforcer la sensibilisation ou revoir l'implantation.
 
 ---
 
-## 5. Générateur de devis auto-école
+## 3. Outil de suivi des marchés et prestataires PAV
 
-**Quoi** : Page HTML standalone qui génère un devis PDF personnalisé selon la formation choisie (code, conduite, permis B, BSR) avec calcul automatique des tarifs, logo, CGV intégrées et export en un clic.
+**Quoi** : Page HTML standalone avec tableau de bord des marchés actifs (prestataire, date de fin, montant, prochaine révision de prix, contacts) et alertes visuelles J-90 / J-30 avant échéance.
 
-**Stack** : HTML/JS + jsPDF (zéro serveur, fonctionne hors ligne)
+**Stack** : HTML/JS + localStorage (aucune dépendance serveur)
 
-**Gain** : Devis professionnel en moins de 2 minutes, image soignée pour l'accueil client, moins de saisie manuelle sur Excel.
+**Gain** : Ne plus rater une reconduction ou un renouvellement de marché, centraliser les informations dispersées dans les emails et dossiers partagés.
 
 ---
 
-*Généré automatiquement le 2026-06-19 (semaine ISO 25)*
+## 4. Extracteur de données cadastrales pour implantation PAV
+
+**Quoi** : Script Python qui, à partir d'une liste de parcelles candidates, interroge l'API Carto (IGN/Géoportail) pour récupérer propriétaire, surface, nature et génère un tableau prêt pour les demandes d'autorisation d'occupation.
+
+**Stack** : Python (requests) + API Carto / data.gouv.fr
+
+**Gain** : Réduire de plusieurs heures la phase administrative d'identification foncière lors de chaque nouvelle implantation.
+
+---
+
+## 5. Simulateur de rentabilité auto-école
+
+**Quoi** : Outil HTML/JS qui calcule le chiffre d'affaires prévisionnel selon le nombre d'élèves, le mix de formations (B, AAC, code seul, BSR) et les tarifs, avec seuil de rentabilité et projection mensuelle sur 12 mois.
+
+**Stack** : HTML/JS + Chart.js (standalone, hors ligne)
+
+**Gain** : Aide à la décision pour ajuster les tarifs ou la capacité d'accueil, préparation rapide des prévisions pour le bilan comptable ou un prêt.
+
+---
+
+*Généré automatiquement le 2026-06-20 (semaine ISO 25)*
